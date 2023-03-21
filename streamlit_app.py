@@ -33,23 +33,27 @@ fruits_selected = streamlit.multiselect("Pick some fruits:", list(my_fruit_list.
 fruits_to_show = my_fruit_list.loc[fruits_selected]
 streamlit.dataframe(fruits_to_show)
 
-streamlit.header("Fruityvice Fruit Advice!")
-fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
-streamlit.write('The user entered ', fruit_choice)
-
-#now we make querys with the python package request
+# making this a try sentence!
 url_petition = "https://fruityvice.com/api/fruit/"
-# We NO LONGER HARDCORE THIS:
-# fruityvice_response = requests.get(url_petition + "Kiwi")
-fruityvice_response = requests.get(url_petition + fruit_choice)
-
-# we take the json and normalize it
-fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
-# we put the output as a dataframe table
-streamlit.dataframe(fruityvice_normalized)
-
-
+streamlit.header("Fruityvice Fruit Advice!")
+try:
+  fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
+  if not fruit_choice:
+      streamlit.error("Please select a fruit to get information.")
+   else:
+      fruityvice_response = requests.get(url_petition + fruit_choice)
+      fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+      # we take the json and normalize it
+      # we put the output as a dataframe table
+      streamlit.dataframe(fruityvice_normalized)
+ 
+except URLError as e:
+  streamlit.error()
+ 
+##########################################
+# WE STOP THE EXECUTION HERE 
 streamlit.stop()
+##########################################
 
 # SNOWFLAKE CONECTION:
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
