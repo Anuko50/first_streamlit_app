@@ -34,8 +34,8 @@ streamlit.dataframe(fruits_to_show)
 streamlit.header("Fruityvice Fruit Advice!")
 
 #now we make querys with the python package request
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-streamlit.text(fruityvice_response.json())  # just writes data to the screen
+url_petition = "https://fruityvice.com/api/fruit/"
+fruityvice_response = requests.get(url_petition + "Kiwi")
 
 # we take the json and normalize it
 fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
