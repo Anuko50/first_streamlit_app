@@ -38,7 +38,7 @@ url_petition = "https://fruityvice.com/api/fruit/"
 fruityvice_response = requests.get(url_petition + "Kiwi")
 
 # we take the json and normalize it
-fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
 # we put the output as a dataframe table
 streamlit.dataframe(fruityvice_normalized)
 
