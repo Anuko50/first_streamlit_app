@@ -61,7 +61,6 @@ except URLError as e:
 
 
 # SNOWFLAKE CONECTION:
-streamlit.header("The fruit load contains:")
 
 # Snowflake related functions:
 def get_fruit_load_list():
